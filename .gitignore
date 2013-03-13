@@ -1,1 +1,9 @@
 201*
+*.aux
+*.bbl
+*.log
+*.dvi
+*.backup
+*.~
+*.blg
+Figures/
