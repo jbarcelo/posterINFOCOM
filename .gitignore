@@ -4,6 +4,7 @@
 *.log
 *.dvi
 *.backup
-*.~
+*~
 *.blg
 Figures/
+*.svg
