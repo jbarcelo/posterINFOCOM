@@ -67,8 +67,8 @@
 	eyecatcher=no,
 	borderColor=imdeanavy,
 	textborder=rectangle,
-    titleColor=white,
-    authorColor=white,
+  	titleColor=white,
+    	authorColor=white,
 	headerfont=\textsf,
 	headerborder=closed,
 	headershape=rectangle,
@@ -107,8 +107,9 @@
 % \end{minipage}
 % }
 
-\headerbox{Motivation}{name=dcf,column=0,row=0,span=2}
+\headerbox{Motivation}{name=motivation,column=0,row=0,span=2}
 {
+
 This section states the general problem: coordinate access to a shared medium, in a distributed manner avoiding collisions.
 \begin{itemize}
  \item What is a contention protocol for?: explain that the medium is shared.
@@ -118,32 +119,9 @@ This section states the general problem: coordinate access to a shared medium, i
 
 }
 
-\headerbox{Throughput}{name=throughput,column=0,below=dcf}{
+\headerbox{CSMA/CA and CSMA/ECA}{name=contention,column=0,below=motivation}{
 
-It might be appropriate to detail the behavior of CSMA/CA alongside with the throughput plot. A balls and bins figure?
-
-\begin{center}
-%\begin{tikzpicture}
-%\path
-%	\ifpdf
-%		(0,0) node{\includegraphics[width=0.7\linewidth, angle=-90]{DCF-ECA-eps-converted-to.pdf}}
-%	\else
-%		(0,0) node{\includegraphics[width=0.7\linewidth]{DCF-ECA.eps}}
-%	\fi
-%	(0,-4.2) node {\smaller This should actually be just a CSMA/CA plot (to be removed).};
-%\end{tikzpicture}
-\end{center}
-}
-
-\headerbox{Using a deterministic backoff}{name=deterministic,column=0,below=throughput}{
-
-This section introduces the deterministic backoff after successful transmissions. It should cover:
-\begin{itemize}
- \item When is this deterministic backoff selected?
- \item Why that value? ($B_{d}=CW_{\min}/2$)
- \item Is the problem solved?: No. Highlight the limitations of Basic ECA.
-\end{itemize}
-
+It might be appropriate to detail the behavior of CSMA/CA and CSMA/ECA. A balls and bins figure?
 
 \begin{center}
 \begin{tikzpicture}
@@ -158,12 +136,41 @@ This section introduces the deterministic backoff after successful transmissions
 \end{center}
 }
 
-\headerbox{Test}{name=test,column=0,below=deterministic,span=1,above=bottom}{
+\headerbox{Ensuring fairness}{name=hysteresis,column=0,below=contention}{
 
-	Test
+This section introduces the hysteresis and fair share concepts.
+
+\begin{center}
+\begin{tikzpicture}
+\path
+	\ifpdf
+		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff-eps-converted-to.pdf}}
+	\else
+		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff.eps}}
+	\fi
+	(0,-1.0) node {\smaller Example balls and bins figure.};
+\end{tikzpicture}
+\end{center}
 }
 
-\headerbox{CSMA/ECA: hysteresis and fair share}{name=fullECA,column=1,span=1,below=dcf}{
+\headerbox{Throughput and fairness in CSMA/CA and CSMA/ECA}{name=throughputBasicECA,column=0,below=hysteresis,above=bottom}{
+
+Test
+\begin{center}
+\begin{tikzpicture}
+\path
+	\ifpdf
+		(0,0) node{\includegraphics[width=0.7\linewidth, angle=-90]{DCF-ECA-eps-converted-to.pdf}}
+	\else
+		(0,0) node{\includegraphics[width=\linewidth]{DCF-ECA.eps}}
+	\fi
+	(0,-4.2) node {\smaller Example balls and bins figure.};
+\end{tikzpicture}
+\end{center}
+
+}
+
+\headerbox{CSMA/ECA: hysteresis and fair share}{name=fullECA,column=1,span=1,below=motivation}{
 
 Explanation on how the hysteresis and fair share achieve this increase in throughput. Also to mention the resiliency to slot drift.
 
@@ -185,17 +192,17 @@ Explanation on how the hysteresis and fair share achieve this increase in throug
 
 Some of the future directions of the project:
 \begin{itemize}
-\item Unsaturated scenarios.
-\item To implement IEEE 802.11e EDCA.
-\item Wireless MAC Processors.
-\item Implementation in RFID networks.
+	\item Unsaturated scenarios.
+	\item To implement IEEE 802.11e EDCA.
+	\item Wireless MAC Processors.
+	\item Implementation in RFID networks.
 \end{itemize}
 
 \begin{center}
 \begin{tikzpicture}
 \path
 	\ifpdf
-		(0,0) node{\includegraphics[width=0.5\linewidth, angle=-90]{avgSystemServiceTime.eps}}
+		(0,0) node{\includegraphics[width=0.5\linewidth, angle=-90]{avgSystemServiceTime-eps-converted-to.pdf}}
 	\else
 		(0,0) node{\includegraphics[width=0.5\linewidth]{avgSystemServiceTime.eps}}
 	\fi
