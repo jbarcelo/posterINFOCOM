@@ -138,7 +138,12 @@ It might be appropriate to detail the behavior of CSMA/CA and CSMA/ECA. A balls 
 
 \headerbox{Ensuring fairness}{name=hysteresis,column=0,below=contention}{
 
-This section introduces the hysteresis and fair share concepts.
+This section introduces the hysteresis and fair share concepts, namely:
+\begin{itemize}
+	\item How is it possible to allocated more contenders in a collision-free fashion?
+	\item What are the repercussions related to fairness?
+	\item How fair share solves this issue?
+\end{itemize}
 
 \begin{center}
 \begin{tikzpicture}
@@ -155,14 +160,16 @@ This section introduces the hysteresis and fair share concepts.
 
 \headerbox{Throughput and fairness in CSMA/CA and CSMA/ECA}{name=throughputBasicECA,column=0,below=hysteresis,above=bottom}{
 
-Test
+Explaining why the throughput figures look as they do.
+
+Also it is worth to mention the fair nature of both protocols.
 \begin{center}
 \begin{tikzpicture}
 \path
 	\ifpdf
-		(0,0) node{\includegraphics[width=0.7\linewidth, angle=-90]{DCF-ECA-eps-converted-to.pdf}}
+		(0,0) node{\includegraphics[width=\linewidth]{ECA-vs-CA-FINAL-eps-converted-to.pdf}}
 	\else
-		(0,0) node{\includegraphics[width=\linewidth]{DCF-ECA.eps}}
+		(0,0) node{\includegraphics[width=\linewidth]{ECA-vs-CA-FINAL.eps}}
 	\fi
 	(0,-4.2) node {\smaller Example balls and bins figure.};
 \end{tikzpicture}
@@ -170,17 +177,17 @@ Test
 
 }
 
-\headerbox{CSMA/ECA: hysteresis and fair share}{name=fullECA,column=1,span=1,below=motivation}{
+\headerbox{CSMA/ECA + hysteresis and fair share}{name=fullECA,column=1,span=1,below=motivation}{
 
-Explanation on how the hysteresis and fair share achieve this increase in throughput. Also to mention the resiliency to slot drift.
+Explanation on how the hysteresis allows us to support many more contenders in a collision-free fashion. And also how fair share corrects the unfairness issue associated with hysteresis.
 
 \begin{center}
 \begin{tikzpicture}
 \path
 	\ifpdf
-		(0,0) node{\includegraphics[width=0.7\linewidth, angle=-90]{throughput-combined-eps-converted-to.pdf}}
+		(0,0) node{\includegraphics[width=\linewidth]{ECA-w-enhancements-FINAL-eps-converted-to.pdf}}
 	\else
-		(0,0) node{\includegraphics[width=0.7\linewidth]{throughput-combined.eps}}
+		(0,0) node{\includegraphics[width=\linewidth]{ECA-w-enhancements-FINAL.eps}}
 	\fi
 	(0,-4.2) node {\smaller An STB establishes active (used) and inactive (unused) SIP sessions.};
 \end{tikzpicture}
