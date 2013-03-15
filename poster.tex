@@ -30,7 +30,8 @@
 \selectcolormodel{cmyk}
 
 \definecolor{imdeanavy}{cmyk}{1,0.342,0,0.714}
-\definecolor{imdeabluedark}{cmyk}{0.628,0.345,0,0.431}
+%\definecolor{imdeabluedark}{cmyk}{0.628,0.345,0,0.431}
+\definecolor{imdeabluedark}{cmyk}{0.23,0.11,0,0.33}
 \definecolor{imdeabluelight}{cmyk}{0.372,0.208,0,0.114}
 \definecolor{imdeacyan}{cmyk}{0.091,0.050,0,0.055}
 
@@ -106,7 +107,7 @@
 % \end{minipage}
 % }
 
-\headerbox{Contending for the medium}{name=dcf,column=0,row=0,span=2}
+\headerbox{Motivation}{name=dcf,column=0,row=0,span=2}
 {
 This section states the general problem: coordinate access to a shared medium, in a distributed manner avoiding collisions.
 \begin{itemize}
@@ -122,19 +123,19 @@ This section states the general problem: coordinate access to a shared medium, i
 It might be appropriate to detail the behavior of CSMA/CA alongside with the throughput plot. A balls and bins figure?
 
 \begin{center}
-\begin{tikzpicture}
-\path
-	\ifpdf
-		(0,0) node{\includegraphics[width=0.7\linewidth, angle=-90]{DCF-ECA-eps-converted-to.pdf}}
-	\else
-		(0,0) node{\includegraphics[width=0.7\linewidth]{DCF-ECA.eps}}
-	\fi
-	(0,-4.2) node {\smaller This should actually be just a CSMA/CA plot (to be removed).};
-\end{tikzpicture}
+%\begin{tikzpicture}
+%\path
+%	\ifpdf
+%		(0,0) node{\includegraphics[width=0.7\linewidth, angle=-90]{DCF-ECA-eps-converted-to.pdf}}
+%	\else
+%		(0,0) node{\includegraphics[width=0.7\linewidth]{DCF-ECA.eps}}
+%	\fi
+%	(0,-4.2) node {\smaller This should actually be just a CSMA/CA plot (to be removed).};
+%\end{tikzpicture}
 \end{center}
 }
 
-\headerbox{Using a deterministic backoff}{name=deterministic,column=0,below=throughput,above=bottom}{
+\headerbox{Using a deterministic backoff}{name=deterministic,column=0,below=throughput}{
 
 This section introduces the deterministic backoff after successful transmissions. It should cover:
 \begin{itemize}
@@ -155,18 +156,11 @@ This section introduces the deterministic backoff after successful transmissions
 	(0,-1.0) node {\smaller Example balls and bins figure.};
 \end{tikzpicture}
 \end{center}
+}
 
-\begin{center}
-\begin{tikzpicture}
-\path
-	\ifpdf
-		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff-eps-converted-to.pdf}}
-	\else
-		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff.eps}}
-	\fi
-	(0,-1.0) node {\smaller Another example balls and bins figure.};
-\end{tikzpicture}
-\end{center}
+\headerbox{Test}{name=test,column=0,below=deterministic,span=1,above=bottom}{
+
+	Test
 }
 
 \headerbox{CSMA/ECA: hysteresis and fair share}{name=fullECA,column=1,span=1,below=dcf}{
@@ -185,6 +179,29 @@ Explanation on how the hysteresis and fair share achieve this increase in throug
 \end{tikzpicture}
 \end{center}
 
+}
+
+\headerbox{Future plans}{name=future,column=1,below=fullECA,above=references}{
+
+Some of the future directions of the project:
+\begin{itemize}
+\item Unsaturated scenarios.
+\item To implement IEEE 802.11e EDCA.
+\item Wireless MAC Processors.
+\item Implementation in RFID networks.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}
+\path
+	\ifpdf
+		(0,0) node{\includegraphics[width=0.5\linewidth, angle=-90]{avgSystemServiceTime.eps}}
+	\else
+		(0,0) node{\includegraphics[width=0.5\linewidth]{avgSystemServiceTime.eps}}
+	\fi
+	(0,-3.2) node {\smaller Average system service time.};
+\end{tikzpicture}
+\end{center}
 }
 
 \headerbox{References}{name=references,span=1,column=1,above=bottom}{
@@ -220,29 +237,6 @@ T.~Qiu, Z.~Ge, S.~Lee, J.~Wang, Q.~Zhao, and J.~Xu.
 \end{thebibliography}
 }
 
-}
-
-\headerbox{Future plans}{name=future,column=1,below=fullECA,above=references}{
-
-Some of the future directions of the project:
-\begin{itemize}
-\item Unsaturated scenarios.
-\item To implement IEEE 802.11e EDCA.
-\item Wireless MAC Processors.
-\item Implementation in RFID networks.
-\end{itemize}
-
-\begin{center}
-\begin{tikzpicture}
-\path
-	\ifpdf
-		(0,0) node{\includegraphics[width=0.5\linewidth, angle=-90]{avgSystemServiceTime.eps}}
-	\else
-		(0,0) node{\includegraphics[width=0.5\linewidth]{avgSystemServiceTime.eps}}
-	\fi
-	(0,-3.2) node {\smaller Average system service time.};
-\end{tikzpicture}
-\end{center}
 }
 
 \end{poster}

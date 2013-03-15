@@ -1,4 +1,5 @@
 201*
+*.old.tex
 *.aux
 *.bbl
 *.log
