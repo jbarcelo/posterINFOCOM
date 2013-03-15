@@ -1,5 +1,5 @@
 201*
-DS_Store
+.DS_Store
 *.old.tex
 *.aux
 *.bbl
