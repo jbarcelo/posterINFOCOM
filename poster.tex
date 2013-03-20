@@ -127,11 +127,11 @@ It might be appropriate to detail the behavior of CSMA/CA and CSMA/ECA. A balls 
 \begin{tikzpicture}
 \path
 	\ifpdf
-		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff-eps-converted-to.pdf}}
+		(0,0) node{\includegraphics[width=\linewidth]{csma_ca-eps-converted-to.pdf}}
 	\else
-		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff.eps}}
+		(0,0) node{\includegraphics[width=\linewidth]{csma_ca.eps}}
 	\fi
-	(0,-1.0) node {\smaller Example balls and bins figure.};
+	(0,-1.0) node {\smaller Example CSMA/CA behavior.};
 \end{tikzpicture}
 \end{center}
 }
@@ -153,7 +153,7 @@ This section introduces the hysteresis and fair share concepts, namely:
 	\else
 		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff.eps}}
 	\fi
-	(0,-1.0) node {\smaller Example balls and bins figure.};
+	(0,-1.0) node {\smaller Example CSMA/ECA behavior.};
 \end{tikzpicture}
 \end{center}
 }
@@ -195,7 +195,7 @@ Explanation on how the hysteresis allows us to support many more contenders in a
 
 }
 
-\headerbox{Future plans}{name=future,column=1,below=fullECA,above=references}{
+\headerbox{Future plans}{name=future,column=1,below=fullECA}{
 
 Some of the future directions of the project:
 \begin{itemize}
@@ -216,7 +216,6 @@ Some of the future directions of the project:
 	(0,-3.2) node {\smaller Average system service time.};
 \end{tikzpicture}
 \end{center}
-
 }
 
 \headerbox{References}{name=references,span=1,column=1,above=bottom}{
