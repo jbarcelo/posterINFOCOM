@@ -110,7 +110,7 @@
 \headerbox{Motivation}{name=motivation,column=0,row=0,span=2}
 {
 
-Wireless networks are composed of nodes that must contend for the medium in a distributed manner. If it two or more contenders attempt transmission at the same time, a collision occurs. %Collisions are intelligible for the receiver, forcing colliding nodes to restart the contention for the medium.
+Wireless networks are composed of nodes that must contend for the medium in a distributed manner. If two or more contenders attempt transmission at the same time, a collision occurs. %Collisions are intelligible for the receiver, forcing colliding nodes to restart the contention for the medium.
 
 Collisions are the main cause of throughput degradation in wireless local area networks (WLANs), so by constructing collision-free WLANs one can attain greater levels of throughput.
 
@@ -139,7 +139,7 @@ Each passing empty slot decrements $B$ by one. Contenders attempt transmission w
 	\else
 		(0,0) node{\includegraphics[width=\linewidth]{csma_ca.eps}}
 	\fi
-	(0,-1.3) node {\smaller Example CSMA/CA behavior.};
+	(0,-1.3) node {\smaller Example CSMA/CA behavior ($CW_{\min}=16$).};
 \end{tikzpicture}
 \end{center}
 
@@ -156,9 +156,9 @@ After a successful transmission, the contender resets is backoff stage ($k=0$).
 % 	\item How fair share solves this issue?
 % \end{itemize}
 
-CSMA/CA relies in a random backoff counter ($B$) that by its nature generates collisions. Furthermore, it instructs nodes to reset the backoff stage ($k$) after a successful transmission: increasing the collision probability. Basic Carrier Sense Multiple Access with Enhanced Collision Avoidance~\cite{CSMA_ECA} (Basic ECA) achieves a collision-free state by picking a deterministic backoff counter $B_{d}=CW_{\min}/2$ after successful transmissions. This choice makes it possible for CSMA/ECA to fairly coexist with CSMA/CA.
+CSMA/CA relies in a random backoff counter ($B$) which by its nature generates collisions. Furthermore, CSMA/CA instructs nodes to reset the backoff stage ($k$) after a successful transmission: increasing the collision probability. Carrier Sense Multiple Access with Enhanced Collision Avoidance~\cite{CSMA_ECA} (Basic CSMA/ECA) achieves a collision-free state by picking a deterministic backoff counter $B_{d}=CW_{\min}/2$ after successful transmissions. This choice makes it possible for Basic CSMA/ECA to fairly coexist with CSMA/CA.
 \\\\
-By picking a deterministic backoff counter and achieving a collision-free state, Basic ECA is capable of throughput levels beyond those attained with CSMA/CA.
+This choice of $B_{d}$ after successful transmissions results in a collision-free state, causing Basic CSMA/ECA's throughput to go over CSMA/CA's.
 
 \begin{center}
 \begin{tikzpicture}
@@ -168,11 +168,11 @@ By picking a deterministic backoff counter and achieving a collision-free state,
 	\else
 		(0,0) node{\includegraphics[width=\linewidth]{ECA-vs-CA-FINAL.eps}}
 	\fi
-	(0,-4.15) node {\smaller Throughput and fairness in CSMA/CA and Basic CSMA/ECA.};
+	(0,-4.29) node {\smaller Throughput and fairness in CSMA/CA and Basic CSMA/ECA ($CW_{\min}=32$).};
 \end{tikzpicture}
 \end{center}
 
-Nevertheless, when the number of contenders surpasses $CW_{\min}/2$, the system incurs in a mixed behavior; some nodes pick a random and others a deterministic backoff counter. This setup has undesired repercussion in the attained throughput, approximating Basic ECA's to CSMA/CA's.
+Nevertheless, when the number of contenders surpasses $CW_{\min}/2$, the system incurs in a mixed behavior; some nodes pick a random and others a deterministic backoff counter. This setup has undesired repercussions in the attained throughput, approximating Basic CSMA/ECA's to CSMA/CA's.
 
 }
 
@@ -197,7 +197,21 @@ Nevertheless, when the number of contenders surpasses $CW_{\min}/2$, the system 
 
 \headerbox{CSMA/ECA + hysteresis and fair share}{name=fullECA,column=1,span=1,below=motivation}{
 
-Explanation on how the hysteresis allows us to support many more contenders in a collision-free fashion. And also how fair share corrects the unfairness issue associated with hysteresis.
+CSMA/ECA is totally distributed, that means that the number of nodes is unknown to all contenders. So, to make it possible to achieve a collision-free state with more than $CW{\min}/2$ contenders, CSMA/ECA instructs nodes {\bfseries not} to reset their backoff stage after successful transmissions and to pick a new deterministic backoff $B_{d}=CW(k)/2$. We called this measure \emph{hysteresis} and it produces backoffs larger than $CW_{\min}/2$, thus making it possible to allocate more contenders in a collision-free fashion.
+\\\\
+Introducing hysteresis produces an uneven distribution of system's available throughput (given that some nodes may have larger $B_{d}$ than others). This unfairness issue is averted by allowing nodes at backoff stage $k$ to send $2^{k}$ packets at each transmission attempt. This is called \emph{fair share}~\cite{fairness-ECA}.
+
+\begin{center}
+\begin{tikzpicture}
+\path
+	\ifpdf
+		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff-eps-converted-to.pdf}}
+	\else
+		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff.eps}}
+	\fi
+	(0,-1.3) node {\smaller Example CSMA/ECA behavior with hysteresis and fair share ($CW_{\min}=16$).};
+\end{tikzpicture}
+\end{center}
 
 \begin{center}
 \begin{tikzpicture}
@@ -207,69 +221,54 @@ Explanation on how the hysteresis allows us to support many more contenders in a
 	\else
 		(0,0) node{\includegraphics[width=\linewidth]{ECA-w-enhancements-FINAL.eps}}
 	\fi
-	(0,-4.2) node {\smaller An STB establishes active (used) and inactive (unused) SIP sessions.};
+	(0,-4.2) node {\smaller Throughput and fairness when incorporating hysteresis and fair share to CSMA/ECA.};
 \end{tikzpicture}
 \end{center}
 
 }
 
-\headerbox{Future plans}{name=future,column=1,below=fullECA}{
+\headerbox{Conclusions and Future plans}{name=future,column=1,below=fullECA}{
 
-Some of the future directions of the project:
+Hysteresis allows CSMA/ECA to allocate any number of contenders in a collision-free state, while fair share compensates the unfairness issue; allowing CSMA/ECA to attain greater throughput than CSMA/CA under most typical conditions.
+
+As future work, we plan to:
 \begin{itemize}
-	\item Unsaturated scenarios.
-	\item To implement IEEE 802.11e EDCA.
-	\item Wireless MAC Processors.
-	\item Implementation in RFID networks.
+	\item Test CSMA/ECA under non-saturated scenarios.
+	\item Implement IEEE 802.11e EDCA quality of service measures.
+	\item Implement CSMA/ECA in cheap commodity hardware~\cite{WMP}.
 \end{itemize}
-
-\begin{center}
-\begin{tikzpicture}
-\path
-	\ifpdf
-		(0,0) node{\includegraphics[width=0.5\linewidth, angle=-90]{avgSystemServiceTime-eps-converted-to.pdf}}
-	\else
-		(0,0) node{\includegraphics[width=0.5\linewidth]{avgSystemServiceTime.eps}}
-	\fi
-	(0,-3.2) node {\smaller Average system service time.};
-\end{tikzpicture}
-\end{center}
 }
 
 \headerbox{References}{name=references,span=1,column=1,above=bottom}{
 
 {
-% \scriptsize
-% 
-% \renewcommand*{\refname}{\vspace*{-0.5em}}
-% \let\oldbibliography\thebibliography
-% \renewcommand{\thebibliography}[1]{\oldbibliography{#1}\setlength{\itemsep}{-0.3em}}
+ \scriptsize
+ 
+ \renewcommand*{\refname}{\vspace*{-0.5em}}
+ \let\oldbibliography\thebibliography
+ \renewcommand{\thebibliography}[1]{\oldbibliography{#1}\setlength{\itemsep}{-0.3em}}
 
-\bibliographystyle{Classes/IEEEtran}
-\bibliography{IEEEabrv,ref}
+% \bibliographystyle{Classes/IEEEtran}
+% \bibliography{IEEEabrv,ref}
 
-% \begin{thebibliography}{1}
+ \begin{thebibliography}{1}
 % 
-% \bibitem{bikfalvi2009ijcs}
-% Alex Bikfalvi, Jaime Garc\'{i}a-Reinoso, Iv\'{a}n Vidal, and Francisco Valera.
-% \newblock A peer-to-peer iptv service architecture for the ip multimedia
-%   subsystem.
-% \newblock {\em International Journal of Communication Systems},
-%   23(6--7):780--801, June--July 2009.
-% 
-% \bibitem{qiu2009modelinguser}
-% T.~Qiu, Z.~Ge, S.~Lee, J.~Wang, J.~Xu, and Q.~Zhao.
-% \newblock Modeling user activities in a large iptv system.
-% \newblock In {\em Proceedings of the 9th ACM SIGCOMM conference on Internet
-%   measurement conference}, pages 430--441. ACM, 2009.
-% 
-% \bibitem{qiu2009modelingchannel}
-% T.~Qiu, Z.~Ge, S.~Lee, J.~Wang, Q.~Zhao, and J.~Xu.
-% \newblock Modeling channel popularity dynamics in a large iptv system.
-% \newblock In {\em Proceedings of the eleventh international joint conference on
-%   Measurement and modeling of computer systems}, pages 275--286. ACM, 2009.
-% 
-% \end{thebibliography}
+ \bibitem{CSMA_ECA}
+Barcelo, J. and Toledo, A.L. and Cano, C. and Oliver, M.
+\newblock Fairness and Convergence of CSMA with Enhanced Collision Avoidance (ECA).
+\newblock {\em 2010 IEEE International Conference on Communications (ICC)} , may 2010, pp 1--6.
+
+ \bibitem{fairness-ECA}
+Sanabria-Russo, L. and Barcelo, J. and Bellalta, B.
+\newblock Fairness in Collision-Free WLANs.
+\newblock {\em ArXiv e-prints} , February 2013.
+
+ \bibitem{WMP}
+Tinnirello, I. and Bianchi, G. and Gallo, P. and Garlisi, D. and Giuliano, F. and Gringoli, F.
+\newblock Wireless MAC processors: Programming MAC protocols on commodity Hardware.
+\newblock {\em INFOCOM, 2012 Proceedings IEEE} , march 2012, pp 1269--1277.
+
+\end{thebibliography}
 }
 
 }
