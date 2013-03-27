@@ -88,12 +88,17 @@
 {
 }
 % Title
-{Fairness in Collision-Free WLANs}
+{Fairness in Collision-Free WLANs\\ 
+\normalsize INFOCOM 2013, Turin, Italy}
 % Authors
 {
-	Luis Sanabria-Russo, Jaume Barcel{\'o}, Boris Bellalta\vspace{0.5em}\\
+	Luis Sanabria-Russo, Jaume Barcel{\'o}, Boris Bellalta
+	%\vspace{0.5em}
+	\\
 	\normalsize Universitat Pompeu Fabra, Barcelona, Spain
 }
+
+
 % Logo
 % {
 % \begin{minipage}{17em}
@@ -126,8 +131,18 @@ Collisions are the main cause of throughput degradation in wireless local area n
 
 Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA) is the most widely used protocol for medium access control (MAC) in WLANs. CSMA/CA's job is to coordinate access to the medium for each contender.
 \\\\
-Time in WLANs is slotted, so CSMA/CA divides it into empty, collision and successful transmission time slots. When a node has something to transmit, it picks a random backoff counter $B\in[0,CW(k)-1]$, where $k\in[0,\ldots,m]$ is the \emph{backoff stage} and $CW(k)=2^{k}CW_{\min}$ is the contention window, with $CW_{\min}$ its minimum value.
-Each passing empty slot decrements $B$ by one. Contenders attempt transmission when the counter expires ($B=0$).
+%Time in WLANs is slotted, so CSMA/CA divides it into empty, collision and successful transmission time slots. 
+%\\\\
+When a node has something to transmit:
+\begin{itemize}
+	\item Picks a random backoff counter $B\in[0,CW(k)-1]$, where $CW(k)=2^{k}CW_{\min}$ is the contention window, with $CW_{\min}$ its minimum value.
+	\item Each passing empty slot decrements $B$ by one. Contenders attempt transmission when the counter expires ($B=0$).
+	\item If there is a collision:
+	\begin{itemize}
+		\item Colliding nodes increment the backoff stage ($k$) in one.
+	\end{itemize}
+	\item After a successful transmission, the contender resets is backoff stage ($k=0$).
+\end{itemize}
 
 %It might be appropriate to detail the behavior of CSMA/CA and CSMA/ECA. A balls and bins figure?
 
@@ -142,33 +157,28 @@ Each passing empty slot decrements $B$ by one. Contenders attempt transmission w
 	(0,-1.7) node {\smaller Example CSMA/CA behavior ($CW_{\min}=16$).};
 \end{tikzpicture}
 \end{center}
-
-If a contender collides, it doubles the range of possible values whence it draws $B$ by incrementing the backoff stage ($k$) in one. This measure effectively reduces the collision probability.
-After a successful transmission, the contender resets is backoff stage ($k=0$).
 }
 
 \headerbox{Basic ECA}{name=hysteresis,column=0,below=contention}{
 
-% This section introduces the hysteresis and fair share concepts, namely:
-% \begin{itemize}
-% 	\item How is it possible to allocated more contenders in a collision-free fashion?
-% 	\item What are the repercussions related to fairness?
-% 	\item How fair share solves this issue?
-% \end{itemize}
-
-CSMA/CA relies in a random backoff counter ($B$) which by its nature generates collisions. Furthermore, CSMA/CA instructs nodes to reset the backoff stage ($k$) after a successful transmission: increasing the collision probability. Carrier Sense Multiple Access with Enhanced Collision Avoidance~\cite{CSMA_ECA} (Basic CSMA/ECA) achieves a collision-free state by picking a deterministic backoff counter $B_{d}=CW_{\min}/2$ after successful transmissions. This choice makes it possible for Basic CSMA/ECA to fairly coexist with CSMA/CA.
+CSMA/CA relies in a random backoff counter ($B$) which by its nature generates collisions. Furthermore, CSMA/CA instructs nodes to reset the backoff stage ($k$) after a successful transmission: increasing the collision probability. 
 \\\\
-This choice of $B_{d}$ after successful transmissions results in a collision-free state, causing Basic CSMA/ECA's throughput to go over CSMA/CA's.
+Carrier Sense Multiple Access with Enhanced Collision Avoidance~\cite{CSMA_ECA} (Basic CSMA/ECA): 
+\begin{itemize}
+	\item Picks a deterministic backoff counter $B_{d}=CW_{\min}/2$ after successful transmissions.
+	\item Achieves a collision-free state.
+	\item Basic CSMA/ECA's throughput goes beyond CSMA/CA's.
+\end{itemize}
 
 \begin{center}
 \begin{tikzpicture}
 \path
 	\ifpdf
-		(0,0) node{\includegraphics[width=0.85\linewidth]{ECA-vs-CA-FINAL-eps-converted-to.pdf}}
+		(0,0) node{\includegraphics[width=0.7\linewidth]{ECA-vs-CA-FINAL-eps-converted-to.pdf}}
 	\else
-		(0,0) node{\includegraphics[width=0.85\linewidth]{ECA-vs-CA-FINAL.eps}}
+		(0,0) node{\includegraphics[width=0.7\linewidth]{ECA-vs-CA-FINAL.eps}}
 	\fi
-	(0,-3.99) node {\smaller Throughput and fairness in CSMA/CA and Basic CSMA/ECA ($CW_{\min}=32$).};
+	(0,-3.15) node {\smaller Throughput and fairness in CSMA/CA and Basic CSMA/ECA ($CW_{\min}=32$).};
 \end{tikzpicture}
 \end{center}
 
@@ -197,9 +207,20 @@ Nevertheless, when the number of contenders surpasses $CW_{\min}/2$, the system 
 
 \headerbox{CSMA/ECA + hysteresis and fair share}{name=fullECA,column=1,span=1,below=motivation}{
 
-CSMA/ECA is totally distributed, that means that the number of nodes is unknown to all contenders. So, to make it possible to achieve a collision-free state with more than $CW{\min}/2$ contenders, CSMA/ECA instructs nodes {\bfseries not} to reset their backoff stage after successful transmissions and to pick a new deterministic backoff $B_{d}=CW(k)/2$. We called this measure \emph{hysteresis} and it produces backoffs larger than $CW_{\min}/2$, thus making it possible to allocate more contenders in a collision-free fashion.
+CSMA/ECA is totally distributed, that means that the number of nodes is unknown to all contenders. So, to make it possible to achieve a collision-free state with more than $CW{\min}/2$ contenders, CSMA/ECA:
+\begin{itemize}
+	\item Instructs nodes {\bfseries not} to reset their backoff stage after successful transmissions.
+	\item Picks a new deterministic backoff $B_{d}=CW(k)/2$.
+\end{itemize}
+We called this measure \emph{hysteresis}.
 \\\\
-Introducing hysteresis produces an uneven distribution of system's available throughput (given that some nodes may have larger $B_{d}$ than others). This unfairness issue is averted by allowing nodes at backoff stage $k$ to send $2^{k}$ packets at each transmission attempt. This is called \emph{fair share}~\cite{fairness-ECA}.
+With hysteresis some nodes may have larger $B_{d}$ than others. This unfairness issue is averted by:
+
+\begin{itemize}
+	\item Allowing nodes at backoff stage $k$ to send $2^{k}$ packets. 
+\end{itemize} 
+
+This is called \emph{fair share}~\cite{fairness-ECA}.
 
 \begin{center}
 \begin{tikzpicture}
@@ -217,11 +238,11 @@ Introducing hysteresis produces an uneven distribution of system's available thr
 \begin{tikzpicture}
 \path
 	\ifpdf
-		(0,0) node{\includegraphics[width=\linewidth]{ECA-w-enhancements-FINAL-eps-converted-to.pdf}}
+		(0,0) node{\includegraphics[width=0.7\linewidth]{ECA-w-enhancements-FINAL-eps-converted-to.pdf}}
 	\else
-		(0,0) node{\includegraphics[width=\linewidth]{ECA-w-enhancements-FINAL.eps}}
+		(0,0) node{\includegraphics[width=0.7\linewidth]{ECA-w-enhancements-FINAL.eps}}
 	\fi
-	(0,-4.2) node {\smaller Throughput and fairness when incorporating hysteresis and fair share to CSMA/ECA.};
+	(0,-3) node {\smaller Throughput and fairness when incorporating hysteresis and fair share to CSMA/ECA.};
 \end{tikzpicture}
 \end{center}
 
@@ -230,7 +251,7 @@ Introducing hysteresis produces an uneven distribution of system's available thr
 \headerbox{Conclusions and Future plans}{name=future,column=1,below=fullECA}{
 
 Hysteresis allows CSMA/ECA to allocate any number of contenders in a collision-free state, while fair share compensates the unfairness issue; allowing CSMA/ECA to attain greater throughput than CSMA/CA under most typical conditions.
-
+\\\\
 As future work, we plan to:
 \begin{itemize}
 	\item Test CSMA/ECA under non-saturated scenarios.
