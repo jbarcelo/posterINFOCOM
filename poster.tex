@@ -115,9 +115,9 @@
 \headerbox{Motivation}{name=motivation,column=0,row=0,span=2}
 {
 
-Wireless networks are composed of nodes that must contend for the medium in a distributed manner. If two or more contenders attempt transmission at the same time, a collision occurs. %Collisions are intelligible for the receiver, forcing colliding nodes to restart the contention for the medium.
+Wireless LANs are composed of nodes that must contend for the medium in a distributed manner. If two or more contenders attempt transmission at the same time, a collision occurs. %Collisions are intelligible for the receiver, forcing colliding nodes to restart the contention for the medium.
 
-Collisions are the main cause of throughput degradation in wireless local area networks (WLANs), so by constructing collision-free WLANs one can attain greater levels of throughput.
+Collisions are the main cause of throughput degradation in Wireless Local Area Networks (WLANs), so by constructing collision-free WLANs one can attain greater levels of throughput.
 
 % \begin{itemize}
 %  \item What is a contention protocol for?: explain that the medium is shared.
@@ -159,7 +159,7 @@ When a node has something to transmit:
 \end{center}
 }
 
-\headerbox{Basic ECA}{name=hysteresis,column=0,below=contention}{
+\headerbox{Basic CSMA/ECA}{name=hysteresis,column=0,below=contention}{
 
 CSMA/CA relies in a random backoff counter ($B$) which by its nature generates collisions. Furthermore, CSMA/CA instructs nodes to reset the backoff stage ($k$) after a successful transmission: increasing the collision probability. 
 \\\\
@@ -214,7 +214,7 @@ CSMA/ECA is totally distributed, that means that the number of nodes is unknown 
 \end{itemize}
 We called this measure \emph{hysteresis}.
 \\\\
-With hysteresis some nodes may have larger $B_{d}$ than others. This unfairness issue is averted by:
+With hysteresis some nodes may have larger $B_{d}$ than others.~This~unfairness issue is averted by:
 
 \begin{itemize}
 	\item Allowing nodes at backoff stage $k$ to send $2^{k}$ packets. 
@@ -230,7 +230,7 @@ This is called \emph{fair share}~\cite{fairness-ECA}.
 	\else
 		(0,0) node{\includegraphics[width=\linewidth]{csma_eca_different_backoff_short.eps}}
 	\fi
-	(0,-1.3) node {\smaller Example CSMA/ECA behavior with hysteresis and fair share ($CW_{\min}=16$).};
+	(0,-1.8) node {\smaller Example CSMA/ECA behavior with hysteresis and fair share ($CW_{\min}=16$).};
 \end{tikzpicture}
 \end{center}
 
@@ -251,7 +251,7 @@ This is called \emph{fair share}~\cite{fairness-ECA}.
 \headerbox{Conclusions and Future plans}{name=future,column=1,below=fullECA}{
 
 Hysteresis allows CSMA/ECA to allocate any number of contenders in a collision-free state, while fair share compensates the unfairness issue; allowing CSMA/ECA to attain greater throughput than CSMA/CA under most typical conditions.
-\\\\
+
 As future work, we plan to:
 \begin{itemize}
 	\item Test CSMA/ECA under non-saturated scenarios.
