@@ -117,7 +117,7 @@
 
 Wireless LANs are composed of nodes that must contend for the medium in a distributed manner. If two or more contenders attempt transmission at the same time, a collision occurs. %Collisions are intelligible for the receiver, forcing colliding nodes to restart the contention for the medium.
 
-Collisions are the main cause of throughput degradation in Wireless Local Area Networks (WLANs), so by constructing collision-free WLANs one can attain greater levels of throughput.
+Collisions are a main cause of throughput degradation in Wireless Local Area Networks (WLANs), so by constructing collision-free WLANs one can attain greater levels of throughput.
 
 % \begin{itemize}
 %  \item What is a contention protocol for?: explain that the medium is shared.
@@ -141,7 +141,7 @@ When a node has something to transmit:
 	\begin{itemize}
 		\item Colliding nodes increment the backoff stage ($k$) in one.
 	\end{itemize}
-	\item After a successful transmission, the contender resets is backoff stage ($k=0$).
+	\item After a successful transmission, the contender resets its backoff stage ($k=0$).
 \end{itemize}
 
 %It might be appropriate to detail the behavior of CSMA/CA and CSMA/ECA. A balls and bins figure?
@@ -209,7 +209,7 @@ Nevertheless, when the number of contenders surpasses $CW_{\min}/2$, the system 
 
 CSMA/ECA is totally distributed, that means that the number of nodes is unknown to all contenders. So, to make it possible to achieve a collision-free state with more than $CW{\min}/2$ contenders, CSMA/ECA:
 \begin{itemize}
-	\item Instructs nodes {\bfseries not} to reset their backoff stage after successful transmissions.
+	\item Instructs nodes {\bfseries not} to reset their backoff stage after successful transmissions. It is reset only when the queue is empty.
 	\item Picks a new deterministic backoff $B_{d}=CW(k)/2$.
 \end{itemize}
 We called this measure \emph{hysteresis}.
